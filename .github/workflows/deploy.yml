@@ -5,8 +5,8 @@ jobs:
   my-job:
     runs-on: ubuntu-latest
     env:
-      ACR_ADMIN_USERNAME: "funnyApp"
-      ACR_LOGIN_SERVER_URL: "funnyApp.azurecr.io"
+      ACR_ADMIN_USERNAME: "funnyapp"
+      ACR_LOGIN_SERVER_URL: "funnyapp.azurecr.io"
       ACR_ADMIN_PASSWORD: '${{ secrets.ACR_ADMIN_PASSWORD }}'
     if: github.repository != 'corndeladmin/DevOps-Unit-10-Workshop'
     steps:
