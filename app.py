@@ -46,7 +46,7 @@ def count():
 def new_order():
     product = request.json["product"]
     customer = request.json["customer"]
-    date_placed = request.json["date_placed"] or datetime.now(tz=timezone.utc)
+    date_placed = datetime.now(tz=timezone.utc)
     download = create_product_download(product)
     try:
         order = add_order(product, customer, date_placed, None, download)
