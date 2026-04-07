@@ -26,3 +26,4 @@ jobs:
       - name: Push Docker image
         run: |
           docker push ${{ env.ACR_LOGIN_SERVER_URL }}/monitoring_workshop/unit-10-order-processing-app:latest
+          
