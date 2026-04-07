@@ -1,27 +1,28 @@
 name: Deploy
-on: 
-  push
+on: push
 
 jobs:
   my-job:
     runs-on: ubuntu-latest
     env:
-        # SET THESE
-        ACR_ADMIN_USERNAME: "funnyapp"
-        ACR_LOGIN_SERVER_URL: "funnyapp.azurecr.io"
-        # SET THESE IN GITHUB
-        ACR_ADMIN_PASSWORD: '${{ secrets.ACR_ADMIN_PASSWORD }}'
-    # DECIDE WHETHER YOU WANT A BRANCH CHECK - if so remove the other "if"
-    # if: github.ref == 'refs/heads/main'
+      ACR_ADMIN_USERNAME: "funnyApp"
+      ACR_LOGIN_SERVER_URL: "funnyApp.azurecr.io"
+      ACR_ADMIN_PASSWORD: '${{ secrets.ACR_ADMIN_PASSWORD }}'
     if: github.repository != 'corndeladmin/DevOps-Unit-10-Workshop'
     steps:
-      - name: test
-        run: echo ${{ github.repository }}
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Build image
-        run: docker build --tag ${ACR_LOGIN_SERVER_URL}/monitoring_workshop/unit-10-order-processing-app --target production .
-      - name: Docker login
-        run: echo $ACR_ADMIN_PASSWORD | docker login -u $ACR_ADMIN_USERNAME --password-stdin ${ACR_LOGIN_SERVER_URL}
-      - name: Push image
-        run: docker push ${ACR_LOGIN_SERVER_URL}/monitoring_workshop/unit-10-order-processing-app
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            --target production \
+            --tag ${{ env.ACR_LOGIN_SERVER_URL }}/monitoring_workshop/unit-10-order-processing-app:latest .
+
+      - name: Login to ACR
+        run: |
+          echo ${{ env.ACR_ADMIN_PASSWORD }} | docker login -u ${{ env.ACR_ADMIN_USERNAME }} --password-stdin ${{ env.ACR_LOGIN_SERVER_URL }}
+
+      - name: Push Docker image
+        run: |
+          docker push ${{ env.ACR_LOGIN_SERVER_URL }}/monitoring_workshop/unit-10-order-processing-app:latest
