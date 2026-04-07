@@ -17,7 +17,7 @@ The logstream includes a stack trace - the files and line numbers odf what was b
 
 <details><summary>Hint</summary>
 
-In the middle of the stack trace you should see it mention "scheduled_jobs.py", line 37.
+In the middle of the stack trace you should see it mention "scheduled_jobs.py", line 37. yes
 
 </details>
 
