@@ -8,7 +8,6 @@ from scheduled_jobs import initialise_scheduled_jobs
 from products import create_product_download
 import requests
 import logging
-
 logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
@@ -55,6 +54,10 @@ def new_order():
 
     return f"Added: {order}"
 
+@app.route("/clear-orders", methods=["POST"])
+def clear_all_orders():
+    clear_orders()
+    return "Orders cleared"
 
 @app.route("/scenario", methods=["POST"])
 def set_scenario():
