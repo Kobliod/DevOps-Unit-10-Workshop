@@ -32,9 +32,8 @@ def process_orders(app):
         response = requests.post(
             app.config["FINANCE_PACKAGE_URL"] + "/ProcessPayment",
             json=payload
-            app.logger.info("Response from endpoint: " + response.text)
         )
-
+        app.logger.info("Response from endpoint: " + response.text)
         response.raise_for_status()
 
         order.set_as_processed()
